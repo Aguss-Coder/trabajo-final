@@ -3,26 +3,70 @@
 
 using namespace std;
 
-void mostrarCompetidores(string &nombre);
+struct competidores
+{
+    int nro_competidor;
+    string nombre;
+    int categoria;
+    int sub_categoria;
+    int tiro_centro;
+    int tiro_no_centro;
+};
+
+void definirNroCompetidores(int &nro);
+void cargarDatosEstructura(competidores competidor[], int &nro);
 
 int main(){
-    string nombre;
+    int nro = 0;
 
-    mostrarCompetidores(nombre);
+    definirNroCompetidores(nro);
+
+    competidores competidor[nro];
+
+    cargarDatosEstructura(competidor, nro);
 
     return 0;
 }
 
-void mostrarCompetidores(string &nombre){
-    ifstream competidores("nombres.txt");
+void definirNroCompetidores(int &nro){
+    string test;
+    ifstream competidores("competidores.txt");
+    
     if(!competidores.is_open()){
         cout << "No se pudo abrir el archivo" << endl;
         return;
     }
 
-    // mostrar los nombres de los competidores con un vector
-    while(getline(competidores, nombre)){
-        cout << nombre << endl;
+    while(!competidores.eof()){
+        competidores >> test;
+        competidores >> test;
+        competidores >> test;
+        competidores >> test;
+        competidores >> test;
+        competidores >> test;
+        nro++;
     }
-    competidores.close();
+}
+
+void cargarDatosEstructura(competidores competidor[], int &nro){
+    ifstream competidores("competidores.txt");
+    
+    if(!competidores.is_open()){
+        cout << "No se pudo abrir el archivo" << endl;
+        return;
+    }
+
+    for (int i = 0; i < nro; i++)
+    {
+        while(!competidores.eof()){
+        competidores >> competidor[i].nro_competidor;
+        nro++;
+        competidores >> competidor[i].nombre;
+        competidores >> competidor[i].categoria;
+        competidores >> competidor[i].sub_categoria;
+        competidores >> competidor[i].tiro_centro;
+        competidores >> competidor[i].tiro_no_centro;
+    }
+    }
+    
 }
