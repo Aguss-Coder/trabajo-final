@@ -6,7 +6,7 @@
 - Abre el proyecto que quieres subir a GitHub.
 - Haz los cambios que quieras en el proyecto.
 - Guarda los cambios.
-- En la barra lateral de Visual Studio Code, ve a Git > Commit.
+- En la barra lateral de Visual Studio Code, ve a Source Control (Ctrl + Shift + G), presionas el signo mas al lado de la palabra "Changes" o "Cambios".
 - En el cuadro de diálogo Commit changes, escribe un mensaje que describa los cambios que has realizado.
 - Haz clic en Commit.
 

@@ -13,22 +13,23 @@ struct competidores
     int tiro_no_centro;
 };
 
-void definirNroCompetidores(int &nro);
-void cargarDatosEstructura(competidores competidor[], int &nro);
+void definir_nro_competidores(int &nro);
+void cargar_datos_estructura(competidores competidor[], int &nro);
+void mostrar_nombres(competidores competidor[], int &nro);
 
 int main(){
     int nro = 0;
-
-    definirNroCompetidores(nro);
+    definir_nro_competidores(nro);
 
     competidores competidor[nro];
+    cargar_datos_estructura(competidor, nro);
 
-    cargarDatosEstructura(competidor, nro);
+    mostrar_nombres(competidor, nro);
 
     return 0;
 }
 
-void definirNroCompetidores(int &nro){
+void definir_nro_competidores(int &nro){
     string test;
     ifstream competidores("competidores.txt");
     
@@ -48,7 +49,7 @@ void definirNroCompetidores(int &nro){
     }
 }
 
-void cargarDatosEstructura(competidores competidor[], int &nro){
+void cargar_datos_estructura(competidores competidor[], int &nro){
     ifstream competidores("competidores.txt");
     
     if(!competidores.is_open()){
@@ -56,17 +57,20 @@ void cargarDatosEstructura(competidores competidor[], int &nro){
         return;
     }
 
-    for (int i = 0; i < nro; i++)
+    while (!competidores.eof())
     {
-        while(!competidores.eof()){
-        competidores >> competidor[i].nro_competidor;
+        competidores >> competidor[nro].nro_competidor;
+        competidores >> competidor[nro].nombre;
+        competidores >> competidor[nro].categoria;
+        competidores >> competidor[nro].sub_categoria;
+        competidores >> competidor[nro].tiro_centro;
+        competidores >> competidor[nro].tiro_no_centro;
         nro++;
-        competidores >> competidor[i].nombre;
-        competidores >> competidor[i].categoria;
-        competidores >> competidor[i].sub_categoria;
-        competidores >> competidor[i].tiro_centro;
-        competidores >> competidor[i].tiro_no_centro;
     }
+}
+
+void mostrar_nombres(competidores competidor[], int &nro){
+    for (int i = 0; i < nro; i++) {
+        cout << competidor[i].nombre << endl;
     }
-    
 }
