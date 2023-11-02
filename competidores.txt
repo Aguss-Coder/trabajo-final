@@ -17,4 +17,4 @@
 17 Ana 1 1 0 5
 18 Ornella 1 1 6 0
 19 Javier 0 1 8 7
-20 Fabian 2 2 10 
+20 Fabian 2 2 10 9
