@@ -109,6 +109,7 @@ void calcular_puntaje(competidores competidor[], competidoresConMasPuntos compet
     int puntaje = 0;
     for (int i = 0; i < nro; i++)
     {
+        puntaje = (competidor[i].tiro_centro * 10) + (competidor[i].tiro_no_centro * 5); 
         competidorConPuntos[i].puntaje = puntaje;
     }
     
