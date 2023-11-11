@@ -28,9 +28,9 @@ struct competidores
 int definir_nro_competidores(int nro);
 void cargar_datos_estructura(competidores competidor[], int nro);
 void mostrar_nombres(competidores competidor[], int &nro);
-void calcular_puntaje(competidores competidor[], int nro, int &puntaje);
-void ordenar_puntaje(competidores competidor[], int nro);
-void cargar_datos_nueva_estructura(competidores competidor[], competidoresConMasPuntos competidorGanador[], int nro, int puntaje);
+void calcular_puntaje(competidores competidor[], competidoresConMasPuntos competidoresConPuntos[], int nro);
+void cargar_datos_nueva_estructura_ordenada(competidores competidor[], competidoresConMasPuntos competidorGanador[], int nro);
+void sort_competitors(competidoresConMasPuntos competidorGanador[], int nro);
 void crear_archivo(competidoresConMasPuntos competidorGanador[], int nro);
 
 int main(){
@@ -44,13 +44,11 @@ int main(){
 
     mostrar_nombres(competidor, nro);
 
-    int puntaje = 0;
-
-    calcular_puntaje(competidor, nro, puntaje);
-    ordenar_puntaje(competidor, nro);
-    
     competidoresConMasPuntos competidorGanador[nro];
-    cargar_datos_nueva_estructura(competidor, competidorGanador, nro, puntaje);
+    
+    calcular_puntaje(competidor, competidorGanador, nro);
+    cargar_datos_nueva_estructura_ordenada(competidor, competidorGanador, nro);
+    sort_competitors(competidorGanador, nro);
 
     crear_archivo(competidorGanador, nro);
 
@@ -107,15 +105,16 @@ void mostrar_nombres(competidores competidor[], int &nro){
     }
 }
 
-void calcular_puntaje(competidores competidor[], int nro, int &puntaje){
-    // code
+void calcular_puntaje(competidores competidor[], competidoresConMasPuntos competidorConPuntos[], int nro){
+    int puntaje = 0;
+    for (int i = 0; i < nro; i++)
+    {
+        competidorConPuntos[i].puntaje = puntaje;
+    }
+    
 }
 
-void ordenar_puntaje(competidores competidor[], int nro){
-    // code
-}
-
-void cargar_datos_nueva_estructura(competidores competidor[], competidoresConMasPuntos competidorNuevo[], int nro, int puntaje){
+void cargar_datos_nueva_estructura_ordenada(competidores competidor[], competidoresConMasPuntos competidorNuevo[], int nro){
     for(int i = 0; i < nro; i++){
         competidorNuevo[i].nro_competidor = competidor[i].nro_competidor;
         competidorNuevo[i].nombre = competidor[i].nombre;
@@ -123,7 +122,18 @@ void cargar_datos_nueva_estructura(competidores competidor[], competidoresConMas
         competidorNuevo[i].sub_categoria = competidor[i].sub_categoria;
         competidorNuevo[i].tiro_centro = competidor[i].tiro_centro;
         competidorNuevo[i].tiro_no_centro = competidor[i].tiro_no_centro;
-        competidorNuevo[i].puntaje = puntaje;
+    }
+}
+
+void sort_competitors(competidoresConMasPuntos competidorGanador[], int nro) {
+    for(int i = 0; i < nro - 1; i++) {
+        for(int j = 0; j < nro - i - 1; j++) {
+            if(competidorGanador[j].puntaje < competidorGanador[j + 1].puntaje) {
+                competidoresConMasPuntos temp = competidorGanador[j];
+                competidorGanador[j] = competidorGanador[j + 1];
+                competidorGanador[j + 1] = temp;
+            }
+        }
     }
 }
 
