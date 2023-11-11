@@ -32,6 +32,8 @@ void calcular_puntaje(competidores competidor[], competidoresConMasPuntos compet
 void cargar_datos_nueva_estructura_ordenada(competidores competidor[], competidoresConMasPuntos competidorGanador[], int nro);
 void sort_competitors(competidoresConMasPuntos competidorGanador[], int nro);
 void crear_archivo(competidoresConMasPuntos competidorGanador[], int nro);
+void cantidad_de_competidores_por_categoria(competidores competidor[], int nro);
+void cantidad_de_competidores_que_superan_un_umbral_de_puntos(competidoresConMasPuntos competidor[], int nro);
 
 int main(){
     int nro = 0;
@@ -51,6 +53,7 @@ int main(){
     sort_competitors(competidorGanador, nro);
 
     crear_archivo(competidorGanador, nro);
+    cantidad_de_competidores_que_superan_un_umbral_de_puntos(competidorGanador, nro);
 
     return 0;
 }
@@ -155,4 +158,22 @@ void crear_archivo(competidoresConMasPuntos competidor[], int nro){
         jugadoresConMasPuntos << competidor[i].tiro_no_centro << " ";
         jugadoresConMasPuntos << competidor[i].puntaje << endl;
     }
+}
+
+void cantidad_de_competidores_por_categoria_y_subcategoria(competidores competidor[], int nro){
+
+}
+void cantidad_de_competidores_que_superan_un_umbral_de_puntos(competidoresConMasPuntos competidor[], int nro){
+    cout << "Ingrese el umbral de puntos: ";
+    int umbral = 0;
+    cin >> umbral;
+    int contador = 0;
+    for (int i = 0; i < nro; i++)
+    {
+        if (competidor[i].puntaje >= umbral)
+        {
+            contador++;
+        }
+    }
+    cout << "La cantidad de competidores que superan el umbral de puntos es: " << contador << endl;
 }
