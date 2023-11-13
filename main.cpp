@@ -28,10 +28,12 @@ struct competidores
 int definir_nro_competidores(int nro);
 void cargar_datos_estructura(competidores competidor[], int nro);
 void mostrar_nombres(competidores competidor[], int &nro);
-void calcular_puntaje(competidores competidor[], int nro, int &puntaje);
-void ordenar_puntaje(competidores competidor[], int nro);
-void cargar_datos_nueva_estructura(competidores competidor[], competidoresConMasPuntos competidorGanador[], int nro, int puntaje);
+void calcular_puntaje(competidores competidor[], competidoresConMasPuntos competidoresConPuntos[], int nro);
+void cargar_datos_nueva_estructura_ordenada(competidores competidor[], competidoresConMasPuntos competidorGanador[], int nro);
+void ordenar_competidores(competidoresConMasPuntos competidorGanador[], int nro);
 void crear_archivo(competidoresConMasPuntos competidorGanador[], int nro);
+void saber_competidores_arriba_del_umbral_de_puntos(competidoresConMasPuntos competidor[], int nro);
+void saber_competidores_por_categoria_y_subcategoria(competidores competidor[], int nro);
 
 int main(){
     int nro = 0;
@@ -44,15 +46,16 @@ int main(){
 
     mostrar_nombres(competidor, nro);
 
-    int puntaje = 0;
-
-    calcular_puntaje(competidor, nro, puntaje);
-    ordenar_puntaje(competidor, nro);
-    
     competidoresConMasPuntos competidorGanador[nro];
-    cargar_datos_nueva_estructura(competidor, competidorGanador, nro, puntaje);
+    
+    calcular_puntaje(competidor, competidorGanador, nro);
+    cargar_datos_nueva_estructura_ordenada(competidor, competidorGanador, nro);
+    ordenar_competidores(competidorGanador, nro);
 
     crear_archivo(competidorGanador, nro);
+    saber_competidores_arriba_del_umbral_de_puntos(competidorGanador, nro);
+
+    saber_competidores_por_categoria_y_subcategoria(competidor,nro);
 
     return 0;
 }
@@ -107,15 +110,17 @@ void mostrar_nombres(competidores competidor[], int &nro){
     }
 }
 
-void calcular_puntaje(competidores competidor[], int nro, int &puntaje){
-    // code
+void calcular_puntaje(competidores competidor[], competidoresConMasPuntos competidorConPuntos[], int nro){
+    int puntaje = 0;
+    for (int i = 0; i < nro; i++)
+    {
+        puntaje = (competidor[i].tiro_centro * 10) + (competidor[i].tiro_no_centro * 5); 
+        competidorConPuntos[i].puntaje = puntaje;
+    }
+    
 }
 
-void ordenar_puntaje(competidores competidor[], int nro){
-    // code
-}
-
-void cargar_datos_nueva_estructura(competidores competidor[], competidoresConMasPuntos competidorNuevo[], int nro, int puntaje){
+void cargar_datos_nueva_estructura_ordenada(competidores competidor[], competidoresConMasPuntos competidorNuevo[], int nro){
     for(int i = 0; i < nro; i++){
         competidorNuevo[i].nro_competidor = competidor[i].nro_competidor;
         competidorNuevo[i].nombre = competidor[i].nombre;
@@ -123,7 +128,18 @@ void cargar_datos_nueva_estructura(competidores competidor[], competidoresConMas
         competidorNuevo[i].sub_categoria = competidor[i].sub_categoria;
         competidorNuevo[i].tiro_centro = competidor[i].tiro_centro;
         competidorNuevo[i].tiro_no_centro = competidor[i].tiro_no_centro;
-        competidorNuevo[i].puntaje = puntaje;
+    }
+}
+
+void ordenar_competidores(competidoresConMasPuntos competidorGanador[], int nro) {
+    for(int i = 0; i < nro - 1; i++) {
+        for(int j = 0; j < nro - i - 1; j++) {
+            if(competidorGanador[j].puntaje < competidorGanador[j + 1].puntaje) {
+                competidoresConMasPuntos temp = competidorGanador[j];
+                competidorGanador[j] = competidorGanador[j + 1];
+                competidorGanador[j + 1] = temp;
+            }
+        }
     }
 }
 
@@ -144,4 +160,37 @@ void crear_archivo(competidoresConMasPuntos competidor[], int nro){
         jugadoresConMasPuntos << competidor[i].tiro_no_centro << " ";
         jugadoresConMasPuntos << competidor[i].puntaje << endl;
     }
+}
+
+void saber_competidores_por_categoria_y_subcategoria(competidores competidor[],  int nro){
+    int matriz[3][3] = {0};
+    for (int i = 0; i < nro; i++)
+    {
+        matriz[competidor[i].categoria ][competidor[i].sub_categoria ]++;
+    }
+    for (int i = 0; i < 3; i++)
+    {
+        cout << "Categoria " << i << endl;
+        for (int j = 0; j < 3; j++)
+        {
+            cout << "Subcategoria " << j << ": " << matriz[i][j] << endl;
+        }
+    }
+    
+
+}
+
+void saber_competidores_arriba_del_umbral_de_puntos(competidoresConMasPuntos competidor[], int nro){
+    cout << "Ingrese el umbral de puntos: ";
+    int umbral = 0;
+    cin >> umbral;
+    int contador = 0;
+    for (int i = 0; i < nro; i++)
+    {
+        if (competidor[i].puntaje >= umbral)
+        {
+            contador++;
+        }
+    }
+    cout << "La cantidad de competidores que superan el umbral de puntos es: " << contador << endl;
 }
