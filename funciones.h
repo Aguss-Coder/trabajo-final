@@ -202,20 +202,24 @@ void menu_interacciones() {
             cout << "Los competidores son:" << endl;
             mostrar_competidores(competidor, nro);
             cout << endl;
+            system("pause"); cout << endl;
         }break;
         case 2: {
             cout << "Los competidores con más puntos son:" << endl;
             cout << endl;
             mostrar_competidores_con_mas_puntos(competidorConMasPuntos, nro);
             cout << endl;
+            system("pause"); cout << endl;
         }break;
         case 3: {
             saber_competidores_arriba_del_umbral(competidorConMasPuntos, nro);
             cout << endl;
+            system("pause"); cout << endl;
         }break;
         case 4: {
             saber_competidores_por_categoria_y_subcategoria(competidor, nro);
             cout << endl;
+            system("pause"); cout << endl;
         }break;
         case 5:
             cout << "Programa finalizado con exito" << endl;
@@ -225,6 +229,7 @@ void menu_interacciones() {
             cout << endl;
             break;
         }
+        system("cls");
     }
 }
 
