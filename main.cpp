@@ -25,6 +25,42 @@ struct competidores
     int tiro_no_centro;
 };
 
+<<<<<<< HEAD
+=======
+int definir_nro_competidores(int nro);
+void cargar_datos_estructura(competidores competidor[], int nro);
+void mostrar_nombres(competidores competidor[], int &nro);
+void calcular_puntaje(competidores competidor[], competidoresConMasPuntos competidoresConPuntos[], int nro);
+void cargar_datos_nueva_estructura_ordenada(competidores competidor[], competidoresConMasPuntos competidorGanador[], int nro);
+void sort_competitors(competidoresConMasPuntos competidorGanador[], int nro);
+void crear_archivo(competidoresConMasPuntos competidorGanador[], int nro);
+void cantidad_de_competidores_por_categoria(competidores competidor[], int nro);
+void cantidad_de_competidores_que_superan_un_umbral_de_puntos(competidoresConMasPuntos competidor[], int nro);
+
+int main(){
+    int nro = 0;
+    nro = definir_nro_competidores(nro);
+
+    competidores competidor[nro];
+    cargar_datos_estructura(competidor, nro);
+
+    cout << "Los competidores son: " << endl;
+
+    mostrar_nombres(competidor, nro);
+
+    competidoresConMasPuntos competidorGanador[nro];
+    
+    calcular_puntaje(competidor, competidorGanador, nro);
+    cargar_datos_nueva_estructura_ordenada(competidor, competidorGanador, nro);
+    sort_competitors(competidorGanador, nro);
+
+    crear_archivo(competidorGanador, nro);
+    cantidad_de_competidores_que_superan_un_umbral_de_puntos(competidorGanador, nro);
+
+    return 0;
+}
+
+>>>>>>> parent of 09528b1 (finish)
 int definir_nro_competidores(int nro){
     string test;
     ifstream competidores("competidores.txt");
@@ -133,6 +169,7 @@ void crear_archivo(competidoresConMasPuntos competidor[], int nro){
     }
 }
 
+<<<<<<< HEAD
 void saber_competidores_por_categoria_y_subcategoria(competidores competidor[],  int nro){
     int matriz[3][3] = {0};
     for (int i = 0; i < nro; i++)
@@ -152,6 +189,12 @@ void saber_competidores_por_categoria_y_subcategoria(competidores competidor[], 
 }
 
 void saber_competidores_arriba_del_umbral(competidoresConMasPuntos competidor[], int nro){
+=======
+void cantidad_de_competidores_por_categoria_y_subcategoria(competidores competidor[], int nro){
+
+}
+void cantidad_de_competidores_que_superan_un_umbral_de_puntos(competidoresConMasPuntos competidor[], int nro){
+>>>>>>> parent of 09528b1 (finish)
     cout << "Ingrese el umbral de puntos: ";
     int umbral = 0;
     cin >> umbral;
